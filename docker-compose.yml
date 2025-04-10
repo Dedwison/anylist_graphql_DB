@@ -1,0 +1,19 @@
+
+
+services:
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+    container_name: anylistDB
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+      # verifica y crea la base de datos si no existe
+      #- ./init-scripts:/docker-entrypoint-initdb.d
+      #./init-scripts/init-db.sql
+      #CREATE DATABASE IF NOT EXISTS anylist;
