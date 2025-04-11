@@ -1,7 +1,8 @@
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
+
 import { ItemsService } from './items.service';
 import { ItemsResolver } from './items.resolver';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Item } from './entities/item.entity';
 
 @Module({
@@ -12,6 +13,5 @@ import { Item } from './entities/item.entity';
   imports: [
     TypeOrmModule.forFeature([ Item ])
   ]
-
 })
 export class ItemsModule {}
