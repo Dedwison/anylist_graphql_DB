@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { error } from 'console';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -18,7 +19,8 @@ export class UsersResolver {
   findOne(
     @Args('id', { type: () => ID }) id: string
   ): Promise<User> {
-    return this.usersService.findOne(id);
+    throw new Error('not implemented')
+    // return this.usersService.findOne(id);
   }
 
   // @Mutation(() => User)
