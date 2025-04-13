@@ -5,11 +5,11 @@ import { User } from './entities/user.entity';
 
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ValidRoles } from '../auth/enums/valid-roles.enum';
 
 import { SignupInput } from './../auth/dto/inputs';
-import { Repository } from 'typeorm';
+import { ArrayContainedBy, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -37,8 +37,25 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return [];
+  async findAll( roles: ValidRoles[]): Promise<User[]> {
+
+    try {
+      if( roles.length === 0) return await this.usersRepository.find({
+        //? relations No es necesario porque tenemos "lazy" la propiedad 'lastUpdatedBy'
+        // relations: {
+        //   lastUpdateBy: true
+        // }
+      });
+  
+      return this.usersRepository.createQueryBuilder()
+      .andWhere( 'ARRAY[roles] && ARRAY[:...roles]')
+      .setParameter('roles', roles)
+      .getMany();   
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+
+    
   }
 
   async findOneByEmail(email: string): Promise<User> {
@@ -63,8 +80,13 @@ export class UsersService {
     return `This action updates a #${id} user`;
   }
 
-  async block(id: string): Promise<User> {
-    throw new Error('block method not implemented');
+  async block(id: string, adminUser: User): Promise<User> {
+    const userToBlock = await this.findOneById( id );
+
+    userToBlock.isActive = !userToBlock.isActive;
+    userToBlock.lastUpdateBy = adminUser;
+
+    return await this.usersRepository.save( userToBlock );
   }
 
   private handleDBErrors(error: any): never {

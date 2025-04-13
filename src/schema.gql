@@ -13,8 +13,9 @@ type User {
   id: ID!
   fullname: String!
   email: String!
-  role: [String!]!
+  roles: [String!]!
   isActive: Boolean!
+  lastUpdateBy: User
 }
 
 type AuthResponse {
@@ -25,9 +26,15 @@ type AuthResponse {
 type Query {
   items: [Item!]!
   item(id: ID!): Item!
-  users: [User!]!
+  users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
   revalidate: AuthResponse!
+}
+
+enum ValidRoles {
+  admin
+  user
+  superUser
 }
 
 type Mutation {
