@@ -76,10 +76,31 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
-  }
+  async update(
+    id: string, 
+    updateUserInput: UpdateUserInput, 
+    updatedBy: User
+  ): Promise<User> {
+  
+    try {
+      const user = await this.usersRepository.preload({
+        ...updateUserInput,
+        id
+      });
 
+      if(!user) throw new NotFoundException(`User with id ${id} not found`);
+
+      if( updateUserInput.password) user.password = bcrypt.hashSync(updateUserInput.password, 10);
+
+      user.lastUpdateBy = updatedBy;
+
+      return await this.usersRepository.save( user )
+    } catch (error) {
+      this.handleDBErrors(error)
+    }
+    
+
+  }
   async block(id: string, adminUser: User): Promise<User> {
     const userToBlock = await this.findOneById( id );
 
