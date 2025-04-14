@@ -3,8 +3,8 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from './entities/user.entity';
 
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { CreateUserInput } from './dto/inputs';
+import { UpdateUserInput } from './dto/inputs';
 import { ValidRoles } from '../auth/enums/valid-roles.enum';
 
 import { SignupInput } from './../auth/dto/inputs';
