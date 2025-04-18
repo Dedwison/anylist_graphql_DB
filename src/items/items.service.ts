@@ -46,9 +46,9 @@ export class ItemsService {
     return item;
   }
 
-  async update(id: string, updateItemInput: UpdateItemInput): Promise<Item> {
-
-    const item = await this.itemRepository.preload( updateItemInput )
+  async update(id: string, updateItemInput: UpdateItemInput, user: User): Promise<Item> {
+    await this.findOne( id, user )
+    const item = await this.itemRepository.preload( {...updateItemInput, user} )
 
     if (!item) {
       throw new NotFoundException(`Item with ID ${id} not found`);
