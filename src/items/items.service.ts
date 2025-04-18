@@ -1,8 +1,10 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { CreateItemInput, UpdateItemInput } from './dto/imputs';
-import { Item } from './entities/item.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateItemInput, UpdateItemInput } from './dto/imputs';
+
+import { User } from '../users/entities/user.entity';
+import { Item } from './entities/item.entity';
 @Injectable()
 export class ItemsService {
 
@@ -14,8 +16,8 @@ export class ItemsService {
   }
 
 
-  async create(createItemInput: CreateItemInput): Promise<Item> {
-    const newItem = this.itemRepository.create( createItemInput )
+  async create(createItemInput: CreateItemInput, user: User): Promise<Item> {
+    const newItem = this.itemRepository.create({ ...createItemInput, user })
 
     try {
       return await this.itemRepository.save( newItem )
@@ -25,10 +27,16 @@ export class ItemsService {
 
   }
 
-  async findAll(): Promise<Item[]> {
+  async findAll(user: User): Promise<Item[]> {
     // TODO: Paginar, Filtrar, por usuarios...
 
-    return this.itemRepository.find();
+    return this.itemRepository.find({ 
+      where: {
+        user: {
+          id: user.id
+        }
+      }
+    });
   }
 
   async findOne(id: string): Promise<Item> {
