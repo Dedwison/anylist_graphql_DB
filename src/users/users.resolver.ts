@@ -4,10 +4,12 @@ import { Resolver, Query, Mutation, Args, Int, ID, ResolveField, Parent } from '
 import { UsersService } from './users.service';
 import { ItemsService } from './../items/items.service';
 
+import { Item } from './../items/entities/item.entity';
 import { User } from './entities/user.entity';
 
 import { UpdateUserInput } from './dto/inputs';
 import { ValidRolesArgs } from './dto/args/roles.arg';
+import { PaginationArgs, SearchArgs } from './../common/dto/args';
 
 import { JwtAuthGuard } from './../auth/guards/auth.guard';
 import { CurrentUser } from './../auth/decorators/current-user.decorator';
@@ -59,8 +61,17 @@ export class UsersResolver {
   async itemCount(
     @CurrentUser( [ValidRoles.admin] ) adminUser: User,
     @Parent() user: User
-  ): Promise<number>{
-    
+  ): Promise<number>{    
     return this.itemsService.itemCountByUser(user);
+  }
+
+  @ResolveField( () => [Item], { name: 'items' } )
+  async getItemsByUsers(
+    @CurrentUser( [ValidRoles.admin] ) adminUser: User,
+    @Parent() user: User,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs
+  ): Promise<Item[]>{    
+    return this.itemsService.findAll( user, paginationArgs, searchArgs);
   }
 }
