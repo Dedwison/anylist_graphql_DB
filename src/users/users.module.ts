@@ -17,7 +17,7 @@ import { User } from './entities/user.entity';
     ItemsModule
   ],
   exports: [
-    // TypeOrmModule,
+    TypeOrmModule,
     UsersService
   ]
 })

@@ -72,7 +72,7 @@ export class UsersService {
     try {
       return await this.usersRepository.findOneByOrFail({ id })
     } catch (error) {
-      throw new NotFoundException(`Email ${id} not found`)
+      throw new NotFoundException(`ID ${id} not found`)
     }
   }
 

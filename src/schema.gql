@@ -4,7 +4,7 @@
 
 type User {
   id: ID!
-  fullname: String!
+  fullName: String!
   email: String!
   roles: [String!]!
   isActive: Boolean!
@@ -47,11 +47,14 @@ type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): Item!
+
+  """Ejcuta la construcción de la base de datos"""
+  executeSeed: Boolean!
 }
 
 input SignupInput {
   email: String!
-  fullname: String!
+  fullName: String!
   password: String!
 }
 
@@ -62,7 +65,7 @@ input LoginInput {
 
 input UpdateUserInput {
   email: String
-  fullname: String
+  fullName: String
   password: String
   id: ID!
   roles: [ValidRoles!]
