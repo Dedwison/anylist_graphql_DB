@@ -7,7 +7,7 @@ import { Item } from './entities/item.entity';
 import { User } from './../users/entities/user.entity';
 
 import { CreateItemInput, UpdateItemInput } from './dto/imputs';
-import { PaginationArgs } from './../common/dto/args/pagination.args';
+import { PaginationArgs, SearchArgs } from './../common/dto/args';
 
 import { CurrentUser } from './../auth/decorators/current-user.decorator';
 
@@ -27,10 +27,11 @@ export class ItemsResolver {
   @Query(() => [Item], { name: 'items' })
   async findAll(
     @CurrentUser() user: User,
-    @Args() paginationArgs: PaginationArgs
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs
   ): Promise<Item[]> {
-    console.log({ paginationArgs })
-    return this.itemsService.findAll(user, paginationArgs);
+    console.log({ paginationArgs, searchArgs })
+    return this.itemsService.findAll(user, paginationArgs, searchArgs);
   }
 
   @Query(() => Item, { name: 'item' })
