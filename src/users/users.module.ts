@@ -1,7 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
-import { ItemsModule } from 'src/items/items.module';
+import { ItemsModule } from './../items/items.module';
 
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';

@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException, InternalServerErrorException } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
-import { ValidRoles } from "../enums/valid-roles.enum";
-import { User } from "../../users/entities/user.entity";
+import { ValidRoles } from "./../enums/valid-roles.enum";
+import { User } from "./../../users/entities/user.entity";
 import { use } from "passport";
 
 export const CurrentUser = createParamDecorator( 

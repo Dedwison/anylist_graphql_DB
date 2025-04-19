@@ -5,11 +5,11 @@ import { Repository } from 'typeorm';
 
 import { SEED_ITEMS, SEED_USERS } from './data/seed-data';
 
-import { Item } from '../items/entities/item.entity';
-import { User } from '../users/entities/user.entity';
+import { Item } from './../items/entities/item.entity';
+import { User } from './../users/entities/user.entity';
 
-import { UsersService } from '../users/users.service';
-import { ItemsService } from '../items/items.service';
+import { UsersService } from './../users/users.service';
+import { ItemsService } from './../items/items.service';
 
 @Injectable()
 export class SeedService {

@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 
 import { SignupInput, LoginInput } from './dto/inputs';
 import { AuthResponse } from './types/auth-response';
-import { User } from 'src/users/entities/user.entity';
+import { User } from './../users/entities/user.entity';
 import { UsersService } from './../users/users.service';
 
 @Injectable()

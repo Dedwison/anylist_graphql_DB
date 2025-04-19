@@ -5,7 +5,7 @@ import { User } from './entities/user.entity';
 
 import { CreateUserInput } from './dto/inputs';
 import { UpdateUserInput } from './dto/inputs';
-import { ValidRoles } from '../auth/enums/valid-roles.enum';
+import { ValidRoles } from './../auth/enums/valid-roles.enum';
 
 import { SignupInput } from './../auth/dto/inputs';
 import { ArrayContainedBy, Repository } from 'typeorm';
