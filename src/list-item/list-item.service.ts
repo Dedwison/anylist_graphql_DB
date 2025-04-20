@@ -64,9 +64,26 @@ export class ListItemService {
     return listItem;
   }
 
-  // update(id: number, updateListItemInput: UpdateListItemInput) {
-  //   return `This action updates a #${id} listItem`;
-  // }
+  async update(
+    id: string, updateListItemInput: UpdateListItemInput
+  ): Promise<ListItem> {
+    const { itemId, listId, quantity, ...rest } = updateListItemInput;
+
+    await this.listItemsRepository.createQueryBuilder()
+    .update()
+    .set({
+      ...rest,
+      ...(itemId && { item: { id: itemId } }),
+      ...(listId && { list: { id: listId } }),
+      ...(quantity && { quantity }),
+    })
+    .where('id = :id', { id })
+    .execute();
+
+ 
+
+    return this.findOne( id )
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} listItem`;
