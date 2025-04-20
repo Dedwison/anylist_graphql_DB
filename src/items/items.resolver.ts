@@ -14,7 +14,8 @@ import { CurrentUser } from './../auth/decorators/current-user.decorator';
 @Resolver(() => Item)
 @UseGuards( JwtAuthGuard )
 export class ItemsResolver {
-  constructor(private readonly itemsService: ItemsService) {}
+  constructor(private readonly itemsService: ItemsService
+  ) {}
 
   @Mutation(() => Item, { name: 'createItem' } )
   async createItem(
