@@ -16,6 +16,7 @@ import { SeedModule } from './seed/seed.module';
 import { CommonModule } from './common/common.module';
 import { ListsModule } from './lists/lists.module';
 import { ListItemModule } from './list-item/list-item.module';
+import { HealthModule } from './health/health.module';
 
 
 @Module({
@@ -26,7 +27,8 @@ import { ListItemModule } from './list-item/list-item.module';
       driver: ApolloDriver,
       imports: [
         /*importar módulos*/ 
-        AuthModule
+        AuthModule,
+        HealthModule
       ],
       inject: [
         /*inyectar servicios*/
@@ -81,7 +83,8 @@ import { ListItemModule } from './list-item/list-item.module';
     SeedModule,
     CommonModule,
     ListsModule,
-    ListItemModule
+    ListItemModule,
+    HealthModule
   ],
   controllers: [ ],
   providers: [],
