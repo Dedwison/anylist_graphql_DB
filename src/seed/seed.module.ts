@@ -6,6 +6,8 @@ import { ItemsModule } from 'src/items/items.module';
 
 import { SeedService } from './seed.service';
 import { SeedResolver } from './seed.resolver';
+import { ListsModule } from 'src/lists/lists.module';
+import { ListItemModule } from 'src/list-item/list-item.module';
 
 @Module({
   providers: [
@@ -16,6 +18,8 @@ import { SeedResolver } from './seed.resolver';
     ConfigModule,
     ItemsModule,
     UsersModule,
+    ListsModule,
+    ListItemModule
   ]
 
 })
