@@ -34,6 +34,7 @@ import { ListItemModule } from './list-item/list-item.module';
       ],
       useFactory: async(jwtService: JwtService) => ({
         playground: false,
+        introspection: true,
         autoSchemaFile: join( process.cwd(), 'src/schema.gql'),
         plugins: [
           ApolloServerPluginLandingPageLocalDefault()
