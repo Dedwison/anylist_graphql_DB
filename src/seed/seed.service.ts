@@ -111,14 +111,21 @@ export class SeedService {
     }
 
 
-    async loadLists( user: User ): Promise<List>{
-        const lists: List[] = [];
+    async loadLists(user: User): Promise<List> {
+        try {
+            const listPromises: Promise<List>[] = [];
 
-        for( const list of SEED_LISTS ){
-            lists.push( await this.listsService.create( list, user ))
+            for (const list of SEED_LISTS) {
+                listPromises.push(this.listsService.create(list, user));
+            }
+
+            const lists = await Promise.all(listPromises);
+            console.log(`Listas creadas: ${lists.length}`); // Para verificar cuántas listas se crearon
+            return lists[0];
+        } catch (error) {
+            console.error('Error al cargar listas:', error);
+            throw error;
         }
-
-        return lists[0]; 
     }
 
     async loadListItem( list: List, items: Item[]) {
@@ -126,8 +133,8 @@ export class SeedService {
     
         for (const item of items) {
             promises.push(this.listItemService.create({
-                quantity: 1,
-                completed: Math.random() > 0.5,                
+                quantity: Math.round(Math.random() * 10),
+                completed:Math.random() > 0.5, // Math.random() > 0.5                
                 listId: list.id,
                 itemId: item.id
             }))
