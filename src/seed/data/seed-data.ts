@@ -1,6 +1,6 @@
 export const SEED_USERS = [
     {
-        fullName: 'Dedwison Alvares',
+        fullName: 'Dedwison Alvarez',
         email: 'dedwison@google.com',
         password: '123456',
         roles: ['admin','superUser','user'],

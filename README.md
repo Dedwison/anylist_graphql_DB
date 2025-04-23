@@ -22,3 +22,30 @@ yarn start:dev
 localhost:3000/graphql
 ```
 7. Ejecutar la __"mutation"__ executedSeed, para llenar la base de datos con información.
+
+
+# Docker istructions
+1. Comando de construcción:
+```
+docker compose -f docker-compose.prod.yml --env-file .env.prod up --build
+```
+
+2. Comando para levantar:
+````
+docker compose -f docker-compose.prod.yml --env-file .env.prod up
+```
+
+3. Cambiar nombre
+```
+docker tag <nombre app> <usuario docker hub>/<nombre repositorio>
+```
+
+4. Ingresar a Docker:
+```
+docker login
+```
+
+5. Subir Imagen:
+```
+docker push <usuario docker hub>/<nombre repositorio>
+```
